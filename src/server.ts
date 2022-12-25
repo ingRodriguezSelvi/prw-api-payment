@@ -7,12 +7,10 @@ import { registerRoutes } from "./routes";
 export let server!: http.Server;
 export const initService = () => {
   const PORT = process.env.PORT || 3001;
-
   const app = express();
   const cors = Cors();
-  dotenv.config({ path: __dirname + "/.env" });
-  app.use(express.static(__dirname + "/public"));
 
+  dotenv.config({ path: __dirname + "/.env" });
 //Cors
   app.use(cors);
   app.use(express.json()); // for parsing application/json

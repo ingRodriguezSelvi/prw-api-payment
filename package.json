@@ -8,8 +8,7 @@
     "dev": "ts-node-dev ./src/server.ts",
     "build": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext .ts",
-    "lint:fix": "npm run lint -- --fix",
-    "test": "jest --verbose"
+    "lint:fix": "npm run lint -- --fix"
   },
   "author": "",
   "license": "ISC",
