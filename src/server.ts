@@ -1,15 +1,32 @@
-import app from "./app";
+import express from "express";
+import Cors from "cors";
+import * as dotenv from "dotenv";
+import http from "http";
+import { registerRoutes } from "./routes";
 
-/**
- * Start Express server.
- */
-const server = app.listen(app.get("port"), () => {
-  console.log(
-    "  App is running at http://localhost:%d in %s mode",
-    app.get("port"),
-    app.get("env")
-  );
-  console.log("  Press CTRL-C to stop\n");
-});
+export let server!: http.Server;
+export const initService = () => {
+  const PORT = process.env.PORT || 3001;
 
-export default server;
+  const app = express();
+  const cors = Cors();
+  dotenv.config({ path: __dirname + "/.env" });
+  app.use(express.static(__dirname + "/public"));
+
+//Cors
+  app.use(cors);
+  app.use(express.json()); // for parsing application/json
+//Routes
+  const router = express.Router();
+  registerRoutes(router);
+  app.use("/api/payment", router);
+
+  server = app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+  return app;
+};
+
+
+
+
