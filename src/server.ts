@@ -6,7 +6,7 @@ import { registerRoutes } from "./routes";
 
 export let server!: http.Server;
 export const initService = () => {
-  const PORT = process.env.PORT || 3001;
+  const PORT = process.env.PORT || 3000;
   const app = express();
   const cors = Cors();
 
