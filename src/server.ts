@@ -2,7 +2,7 @@ import express from "express";
 import Cors from "cors";
 import * as dotenv from "dotenv";
 import http from "http";
-import { registerRoutes } from "./routes";
+import routes from "./routes/routes";
 
 export let server!: http.Server;
 export const initService = () => {
@@ -16,8 +16,11 @@ export const initService = () => {
   app.use(express.json()); // for parsing application/json
 //Routes
   const router = express.Router();
-  registerRoutes(router);
-  app.use("/api/payment", router);
+
+  //Routes
+  const basePath = "/api/payment";
+  app.use(`${basePath}/stripe`, routes.routerStripe);
+  app.use(`${basePath}/health-check`, routes.routerHealthCheck);
 
   server = app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
